@@ -22,7 +22,7 @@ def download_cora():
     if os.path.exists(os.path.join(extract_to, "cora")):
         return
 
-    response = requests.get(url, stream=True)
+    response = requests.get(url, stream=True, timeout=60)
     if response.status_code == 200:
         file_path = os.path.join(extract_to, url.split("/")[-1])
 

@@ -35,7 +35,7 @@ class TestVisionTower(unittest.TestCase):
         cls.proc = AutoProcessor.from_pretrained(MODEL_PATH)
 
     def test_image_features(self):
-        raw_image = Image.open(requests.get(IMAGE_FILE, stream=True).raw)
+        raw_image = Image.open(requests.get(IMAGE_FILE, stream=True, timeout=60).raw)
         vision_feature_layer = -2
         with torch.no_grad():
             pixel_values = self.proc(PROMPT, raw_image, return_tensors="pt")[
@@ -82,7 +82,7 @@ class TestLlava(unittest.TestCase):
         cls.proc = AutoProcessor.from_pretrained(MODEL_PATH)
 
     def test_merge_input_ids_with_image_features(self):
-        raw_image = Image.open(requests.get(IMAGE_FILE, stream=True).raw)
+        raw_image = Image.open(requests.get(IMAGE_FILE, stream=True, timeout=60).raw)
         vision_feature_layer = -2
         with torch.no_grad():
             values = self.proc(PROMPT, raw_image, return_tensors="pt")
@@ -137,7 +137,7 @@ class TestLlava(unittest.TestCase):
             )
 
     def test_generated_tokens(self):
-        raw_image = Image.open(requests.get(IMAGE_FILE, stream=True).raw)
+        raw_image = Image.open(requests.get(IMAGE_FILE, stream=True, timeout=60).raw)
         with torch.no_grad():
             hf_inputs = self.proc(PROMPT, raw_image, return_tensors="pt")
             hf_outputs = self.hf_llava(**hf_inputs)
