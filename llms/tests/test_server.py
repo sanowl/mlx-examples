@@ -46,7 +46,7 @@ class TestServer(unittest.TestCase):
             "stop": "stop sequence",
         }
 
-        response = requests.post(url, json=post_data)
+        response = requests.post(url, json=post_data, timeout=60)
 
         response_body = response.text
 
@@ -66,7 +66,7 @@ class TestServer(unittest.TestCase):
                 {"role": "user", "content": "Hello!"},
             ],
         }
-        response = requests.post(url, json=chat_post_data)
+        response = requests.post(url, json=chat_post_data, timeout=60)
         response_body = response.text
         self.assertIn("id", response_body)
         self.assertIn("choices", response_body)
