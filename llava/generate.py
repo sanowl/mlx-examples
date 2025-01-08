@@ -58,7 +58,7 @@ def load_image(image_source):
     """
     if image_source.startswith(("http://", "https://")):
         try:
-            response = requests.get(image_source, stream=True)
+            response = requests.get(image_source, stream=True, timeout=60)
             response.raise_for_status()
             return Image.open(response.raw)
         except Exception as e:
