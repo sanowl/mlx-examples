@@ -5,11 +5,11 @@ import codecs
 from pathlib import Path
 
 import mlx.core as mx
-import requests
 from PIL import Image
 from transformers import AutoProcessor
 
 from llava import LlavaModel
+from security import safe_requests
 
 
 def parse_arguments():
@@ -58,7 +58,7 @@ def load_image(image_source):
     """
     if image_source.startswith(("http://", "https://")):
         try:
-            response = requests.get(image_source, stream=True)
+            response = safe_requests.get(image_source, stream=True)
             response.raise_for_status()
             return Image.open(response.raw)
         except Exception as e:
