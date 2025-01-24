@@ -3,8 +3,8 @@ import tarfile
 
 import mlx.core as mx
 import numpy as np
-import requests
 import scipy.sparse as sparse
+from security import safe_requests
 
 """
 Preprocessing follows the same implementation as in:
@@ -22,7 +22,7 @@ def download_cora():
     if os.path.exists(os.path.join(extract_to, "cora")):
         return
 
-    response = requests.get(url, stream=True)
+    response = safe_requests.get(url, stream=True)
     if response.status_code == 200:
         file_path = os.path.join(extract_to, url.split("/")[-1])
 
